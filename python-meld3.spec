@@ -2,7 +2,7 @@
 Summary: An HTML/XML templating system for Python
 Name: python-meld3
 Version: 0.6
-Release: 2%{?dist}.1
+Release: 3%{?dist}
 
 License: ZPL
 Group: Development/Languages
@@ -43,6 +43,9 @@ CFLAGS="%{optflags}" %{__python} setup.py build
 %{python_sitearch}/meld3/
 
 %changelog
+* Wed Aug 22 2007 Mike McGrath <mmcgrath@redhat.com> 0.6-3
+- Release bump for rebuild
+
 * Thu Apr 26 2007 Mike McGrath <mmcgrath@redhat.com> 0.6-2.1
 - Fix requires on python-elementtree for python-2.5.  (elementtree is included
   in python-2.5)
