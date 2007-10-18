@@ -1,13 +1,13 @@
 %{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
 Summary: An HTML/XML templating system for Python
 Name: python-meld3
-Version: 0.6
-Release: 3%{?dist}
+Version: 0.6.3
+Release: 1%{?dist}
 
-License: ZPL
+License: ZPLv2.0
 Group: Development/Languages
 URL: http://www.plope.com/software/meld3/
-Source: http://www.plope.com/software/meld3/meld3-%{version}.tgz
+Source: http://www.plope.com/software/meld3/meld3-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %if 0%{?fedora} <= 6
@@ -39,10 +39,14 @@ CFLAGS="%{optflags}" %{__python} setup.py build
 
 %files
 %defattr(-,root,root,-)
-%doc README.txt
+%doc README.txt COPYRIGHT.txt LICENSE.txt CHANGES.txt
 %{python_sitearch}/meld3/
 
 %changelog
+* Wed Oct 17 2007 Toshio Kuratomi <a.badger@gmail.com> 0.6.3-1
+- Update to 0.6.3 (Fix memory leaks).
+- Update license tag.
+
 * Wed Aug 22 2007 Mike McGrath <mmcgrath@redhat.com> 0.6-3
 - Release bump for rebuild
 
