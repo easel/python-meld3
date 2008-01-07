@@ -2,7 +2,7 @@
 Summary: An HTML/XML templating system for Python
 Name: python-meld3
 Version: 0.6.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: ZPLv2.0
 Group: Development/Languages
@@ -40,9 +40,12 @@ CFLAGS="%{optflags}" %{__python} setup.py build
 %files
 %defattr(-,root,root,-)
 %doc README.txt COPYRIGHT.txt LICENSE.txt CHANGES.txt
-%{python_sitearch}/meld3/
+%{python_sitearch}/*
 
 %changelog
+* Mon Jan 7 2008 Toshio Kuratomi <a.badger@gmail.com> 0.6.3-2
+- Fix include egginfo when created.
+
 * Wed Oct 17 2007 Toshio Kuratomi <a.badger@gmail.com> 0.6.3-1
 - Update to 0.6.3 (Fix memory leaks).
 - Update license tag.
