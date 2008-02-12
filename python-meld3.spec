@@ -2,7 +2,7 @@
 Summary: An HTML/XML templating system for Python
 Name: python-meld3
 Version: 0.6.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: ZPLv2.0
 Group: Development/Languages
@@ -43,6 +43,9 @@ CFLAGS="%{optflags}" %{__python} setup.py build
 %{python_sitearch}/*
 
 %changelog
+* Tue Feb 12 2008 Mike McGrath <mmcgrath@redhat.com> 0.6.3-3
+- Rebuild for gcc43
+
 * Mon Jan 7 2008 Toshio Kuratomi <a.badger@gmail.com> 0.6.3-2
 - Fix include egginfo when created.
 
