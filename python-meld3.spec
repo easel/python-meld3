@@ -1,13 +1,17 @@
 %{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
 Summary: An HTML/XML templating system for Python
 Name: python-meld3
-Version: 0.6.3
-Release: 3%{?dist}
+Version: 0.6.4
+Release: 1%{?dist}
 
 License: ZPLv2.0
 Group: Development/Languages
 URL: http://www.plope.com/software/meld3/
-Source: http://www.plope.com/software/meld3/meld3-%{version}.tar.gz
+Source0: http://www.plope.com/software/meld3/meld3-%{version}.tar.gz
+# 0.6.4 is a bit broken.  This file is missing from the tarball.
+Source1: http://svn.supervisord.org/meld3/trunk/meld3/cmeld3.c
+# Fix problems importing python-2.5's elementtree.
+Patch0: meld3-etree.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %if 0%{?fedora} <= 6
@@ -25,14 +29,19 @@ http://www.entrian.com/PyMeld for a treatise on the benefits of this pattern.
 
 %prep
 %setup -q -n meld3-%{version}
+cp %{SOURCE1} meld3/cmeld3.c
+%patch0 -p1 -b .etree
 
 %build
+export USE_MELD3_EXTENSION_MODULES=True
 CFLAGS="%{optflags}" %{__python} setup.py build
 
 %install
 %{__rm} -rf %{buildroot}
+export USE_MELD3_EXTENSION_MODULES=True
 %{__python} setup.py install --skip-build --root %{buildroot}
 %{__sed} -i s'/^#!.*//' $( find %{buildroot}/%{python_sitearch}/meld3/ -type f)
+chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -43,6 +52,10 @@ CFLAGS="%{optflags}" %{__python} setup.py build
 %{python_sitearch}/*
 
 %changelog
+* Tue Feb 28 2008 Toshio Kuratomi <toshio@fedoraproject.org> 0.6.4-1
+- Update to 0.6.4.
+- Fix python-2.5 elementtree problem.
+
 * Tue Feb 12 2008 Mike McGrath <mmcgrath@redhat.com> 0.6.3-3
 - Rebuild for gcc43
 
