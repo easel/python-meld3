@@ -2,7 +2,7 @@
 Summary: An HTML/XML templating system for Python
 Name: python-meld3
 Version: 0.6.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: ZPLv2.0
 Group: Development/Languages
@@ -52,6 +52,9 @@ chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 %{python_sitearch}/*
 
 %changelog
+* Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 0.6.4-2
+- Rebuild for Python 2.6
+
 * Tue Feb 28 2008 Toshio Kuratomi <toshio@fedoraproject.org> 0.6.4-1
 - Update to 0.6.4.
 - Fix python-2.5 elementtree problem.
