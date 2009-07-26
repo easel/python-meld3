@@ -2,7 +2,7 @@
 Summary: An HTML/XML templating system for Python
 Name: python-meld3
 Version: 0.6.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: ZPLv2.0
 Group: Development/Languages
@@ -52,6 +52,9 @@ chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 %{python_sitearch}/*
 
 %changelog
+* Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Thu Feb 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
