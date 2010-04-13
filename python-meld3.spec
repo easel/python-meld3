@@ -1,17 +1,13 @@
 %{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
 Summary: An HTML/XML templating system for Python
 Name: python-meld3
-Version: 0.6.4
-Release: 4%{?dist}
+Version: 0.6.5
+Release: 1%{?dist}
 
 License: ZPLv2.0
 Group: Development/Languages
 URL: http://www.plope.com/software/meld3/
 Source0: http://www.plope.com/software/meld3/meld3-%{version}.tar.gz
-# 0.6.4 is a bit broken.  This file is missing from the tarball.
-Source1: http://svn.supervisord.org/meld3/trunk/meld3/cmeld3.c
-# Fix problems importing python-2.5's elementtree.
-Patch0: meld3-etree.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %if 0%{?fedora} <= 6
@@ -29,8 +25,6 @@ http://www.entrian.com/PyMeld for a treatise on the benefits of this pattern.
 
 %prep
 %setup -q -n meld3-%{version}
-cp %{SOURCE1} meld3/cmeld3.c
-%patch0 -p1 -b .etree
 
 %build
 export USE_MELD3_EXTENSION_MODULES=True
@@ -52,6 +46,10 @@ chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 %{python_sitearch}/*
 
 %changelog
+* Tue Apr 13 2010 Nils Philippsen <nils@redhat.com> - 0.6.5-1
+- version 0.6.5
+- drop obsolete etree patch
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
