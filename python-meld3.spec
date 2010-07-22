@@ -2,7 +2,7 @@
 Summary: An HTML/XML templating system for Python
 Name: python-meld3
 Version: 0.6.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: ZPLv2.0
 Group: Development/Languages
@@ -46,6 +46,9 @@ chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 %{python_sitearch}/*
 
 %changelog
+* Thu Jul 22 2010 David Malcolm <dmalcolm@redhat.com> - 0.6.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
+
 * Tue Apr 13 2010 Nils Philippsen <nils@redhat.com> - 0.6.5-1
 - version 0.6.5
 - drop obsolete etree patch
