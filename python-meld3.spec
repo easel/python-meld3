@@ -1,16 +1,16 @@
-%{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-Summary: An HTML/XML templating system for Python
+%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
+Summary: HTML/XML templating system for Python
 Name: python-meld3
-Version: 0.6.5
-Release: 2%{?dist}
+Version: 0.6.7
+Release: 1%{?dist}
 
-License: ZPLv2.0
+License: ZPLv2.1
 Group: Development/Languages
 URL: http://www.plope.com/software/meld3/
-Source0: http://www.plope.com/software/meld3/meld3-%{version}.tar.gz
+Source0: http://pypi.python.org/packages/source/m/meld3/meld3-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
-%if 0%{?fedora} <= 6
+%if 0%{?rhel} && 0%{?rhel} <= 5
 BuildRequires:  python-elementtree
 Requires: python-elementtree
 %endif
@@ -37,6 +37,9 @@ export USE_MELD3_EXTENSION_MODULES=True
 %{__sed} -i s'/^#!.*//' $( find %{buildroot}/%{python_sitearch}/meld3/ -type f)
 chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 
+%check
+%{__python} meld3/test_meld3.py
+
 %clean
 %{__rm} -rf %{buildroot}
 
@@ -46,6 +49,10 @@ chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 %{python_sitearch}/*
 
 %changelog
+* Fri Nov 19 2010 Toshio Kuratomi <toshio@fedoraproject.org> - 0.6.7-1
+- Update to solve a crasher bug on python-2.7:
+  https://bugzilla.redhat.com/show_bug.cgi?id=652890
+
 * Thu Jul 22 2010 David Malcolm <dmalcolm@redhat.com> - 0.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
 
