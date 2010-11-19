@@ -8,6 +8,9 @@ License: ZPLv2.1
 Group: Development/Languages
 URL: http://www.plope.com/software/meld3/
 Source0: http://pypi.python.org/packages/source/m/meld3/meld3-%{version}.tar.gz
+# From Revision 996 of the svn repository
+# The current meld3 tarball leaves this out by mistake
+Source1: http://svn.supervisord.org/meld3/trunk/meld3/cmeld3.c
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %if 0%{?rhel} && 0%{?rhel} <= 5
@@ -25,6 +28,7 @@ http://www.entrian.com/PyMeld for a treatise on the benefits of this pattern.
 
 %prep
 %setup -q -n meld3-%{version}
+cp %{SOURCE1} meld3/
 
 %build
 export USE_MELD3_EXTENSION_MODULES=True
@@ -52,6 +56,7 @@ chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 * Fri Nov 19 2010 Toshio Kuratomi <toshio@fedoraproject.org> - 0.6.7-1
 - Update to solve a crasher bug on python-2.7:
   https://bugzilla.redhat.com/show_bug.cgi?id=652890
+- Fix missing cmeld3.c file in the upstream tarball (upstream was notified).
 
 * Thu Jul 22 2010 David Malcolm <dmalcolm@redhat.com> - 0.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
