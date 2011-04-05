@@ -2,7 +2,7 @@
 Summary: HTML/XML templating system for Python
 Name: python-meld3
 Version: 0.6.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: ZPLv2.1
 Group: Development/Languages
@@ -54,9 +54,9 @@ rm -rf %{buildroot}
 %{python_sitearch}/*
 
 %changelog
-* Tue Apr 05 2011 Nils Philippsen - 0.6.7-3
+* Tue Apr 05 2011 Nils Philippsen - 0.6.7-4
 - patch in missing cmeld3.c file instead of indiscriminately (over-)writing it
-- don't use macros for system executabkes except python
+- don't use macros for system executables (except python)
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
