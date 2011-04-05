@@ -2,15 +2,16 @@
 Summary: HTML/XML templating system for Python
 Name: python-meld3
 Version: 0.6.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: ZPLv2.1
 Group: Development/Languages
 URL: http://www.plope.com/software/meld3/
 Source0: http://pypi.python.org/packages/source/m/meld3/meld3-%{version}.tar.gz
-# From Revision 996 of the svn repository
 # The current meld3 tarball leaves this out by mistake
-Source1: http://svn.supervisord.org/meld3/trunk/meld3/cmeld3.c
+# https://github.com/Supervisor/meld3/raw/0.6.7/meld3/cmeld3.c -- AKA:
+# https://github.com/Supervisor/meld3/raw/bafd959fc2e389f46786a6b3174d50f9963fe967/meld3/cmeld3.c
+Patch0: python-meld3-0.6.7-missing-src-file.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %if 0%{?rhel} && 0%{?rhel} <= 5
@@ -28,24 +29,24 @@ http://www.entrian.com/PyMeld for a treatise on the benefits of this pattern.
 
 %prep
 %setup -q -n meld3-%{version}
-cp %{SOURCE1} meld3/
+%patch0 -p1 -b .missing-src-file
 
 %build
 export USE_MELD3_EXTENSION_MODULES=True
 CFLAGS="%{optflags}" %{__python} setup.py build
 
 %install
-%{__rm} -rf %{buildroot}
+rm -rf %{buildroot}
 export USE_MELD3_EXTENSION_MODULES=True
 %{__python} setup.py install --skip-build --root %{buildroot}
-%{__sed} -i s'/^#!.*//' $( find %{buildroot}/%{python_sitearch}/meld3/ -type f)
+sed -i s'/^#!.*//' $( find %{buildroot}/%{python_sitearch}/meld3/ -type f)
 chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 
 %check
 %{__python} meld3/test_meld3.py
 
 %clean
-%{__rm} -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
@@ -53,6 +54,10 @@ chmod 0755 %{buildroot}/%{python_sitearch}/meld3/cmeld3.so
 %{python_sitearch}/*
 
 %changelog
+* Tue Apr 05 2011 Nils Philippsen - 0.6.7-3
+- patch in missing cmeld3.c file instead of indiscriminately (over-)writing it
+- don't use macros for system executabkes except python
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
